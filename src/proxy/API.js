@@ -1,5 +1,5 @@
 /*jslint browser: true, undef: true *//*global Ext*/
-Ext.define('Jarvus.ext.proxy.API', {
+Ext.define('Jarvus.proxy.API', {
     extend: 'Ext.data.proxy.Ajax',
     alias: 'proxy.api',
     requires: [
@@ -13,18 +13,18 @@ Ext.define('Jarvus.ext.proxy.API', {
          */
         connection: 'Jarvus.util.API'
     },
-    
+
     applyConnection: function(connection) {
         if (typeof connection == 'string') {
             Ext.syncRequire(connection);
             connection = Ext.ClassManager.get(connection);
         }
-        
+
         return connection;
     },
 
     sendRequest: function(request) {
-        var me = this;     
+        var me = this;
 
         request.setRawRequest(me.getConnection().request(Ext.applyIf({
             autoDecode: false,
