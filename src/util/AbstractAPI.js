@@ -117,7 +117,7 @@ Ext.define('Jarvus.util.AbstractAPI', {
                         fn: function (btn) {
                             if (btn === 'yes') {
                                 // login
-                                var loginWindow = window.open('/login', 'emergence-login');
+                                var loginWindow = window.open(me.buildUrl('/login'), 'emergence-login');
                                 loginWindow.focus();
                                 return;
                             } else if (btn === 'no') {
