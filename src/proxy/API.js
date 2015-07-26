@@ -14,6 +14,24 @@ Ext.define('Jarvus.proxy.API', {
         connection: 'Jarvus.util.API'
     },
 
+    onClassExtended: function(cls, data, hooks) {
+        var connection = data.connection || data.config && data.config.connection,
+            onBeforeClassCreated;
+
+        if (typeof connection === 'string') {
+            onBeforeClassCreated = hooks.onBeforeCreated;
+
+            hooks.onBeforeCreated = function() {
+                var me = this,
+                    args = arguments;
+
+                Ext.require(connection, function() {
+                    onBeforeClassCreated.apply(me, args);
+                });
+            };
+        }
+    }, 
+
     applyConnection: function(connection) {
         if (typeof connection == 'string') {
             Ext.syncRequire(connection);
