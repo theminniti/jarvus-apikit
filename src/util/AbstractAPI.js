@@ -21,13 +21,13 @@ Ext.define('Jarvus.util.AbstractAPI', {
     config: {
         /**
          * @cfg {String/null}
-         * A hostname to prefix URLs with, or null to leave paths domain-relative
+         * A host to prefix URLs with, or null to leave paths domain-relative
          */
-        hostname: null,
+        host: null,
         
         /**
          * @cfg {Boolean}
-         * True to use HTTPS when prefixing hostname. Only used if {@link #cfg-hostname} is set
+         * True to use HTTPS when prefixing host. Only used if {@link #cfg-host} is set
          */
         useSSL: false,
 
@@ -37,8 +37,8 @@ Ext.define('Jarvus.util.AbstractAPI', {
 
     //@private
     buildUrl: function(path) {
-        var hostname = this.getHostname();
-        return hostname ? (this.getUseSSL() ? 'https://' : 'http://')+hostname+path : path;
+        var host = this.getHost();
+        return host ? (this.getUseSSL() ? 'https://' : 'http://')+host+path : path;
     },
 
     //@private
@@ -154,5 +154,23 @@ Ext.define('Jarvus.util.AbstractAPI', {
             },
             scope: options.scope
         }, options));
+    },
+
+    // @deprecated
+    setHostname: function(hostname) {
+        //<debug>
+        Ext.Logger.deprecate('hostname config is deprecated, use host instead');
+        //</debug>
+
+        this.setHost(hostname);
+    },
+
+    // @deprecated
+    getHostname: function() {
+        //<debug>
+        Ext.Logger.deprecate('hostname config is deprecated, use host instead');
+        //</debug>
+
+        return this.getHost();
     }
 });
