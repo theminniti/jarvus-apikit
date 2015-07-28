@@ -58,7 +58,7 @@ Ext.define('Jarvus.util.AbstractAPI', {
     request: function(options) {
         var me = this;
 
-        return Ext.Ajax.request(Ext.applyIf({
+        return me.callParent([Ext.applyIf({
             url: me.buildUrl(options.url),
             withCredentials: true,
             params: me.buildParams(options.params),
@@ -153,7 +153,7 @@ Ext.define('Jarvus.util.AbstractAPI', {
 
             },
             scope: options.scope
-        }, options));
+        }, options)]);
     },
 
     // @deprecated
