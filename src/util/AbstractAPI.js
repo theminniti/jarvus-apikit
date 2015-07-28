@@ -24,12 +24,18 @@ Ext.define('Jarvus.util.AbstractAPI', {
          * A host to prefix URLs with, or null to leave paths domain-relative
          */
         host: null,
-        
+
         /**
          * @cfg {Boolean}
          * True to use HTTPS when prefixing host. Only used if {@link #cfg-host} is set
          */
         useSSL: false,
+
+        /**
+         * @cfg {String/null}
+         * A path to prefix URLs with
+         */
+        pathPrefix: null,
 
         // @inheritdoc
         withCredentials: true,
@@ -43,8 +49,19 @@ Ext.define('Jarvus.util.AbstractAPI', {
 
     //@private
     buildUrl: function(path) {
-        var host = this.getHost();
-        return host ? (this.getUseSSL() ? 'https://' : 'http://')+host+path : path;
+        var me = this,
+            host = me.getHost(),
+            pathPrefix = me.getPathPrefix();
+
+        if (pathPrefix) {
+            path = pathPrefix + path;
+        }
+
+        if (host) {
+            path = (me.getUseSSL() ? 'https://' : 'http://') + host + path;
+        }
+
+        return path;
     },
 
     //@private
