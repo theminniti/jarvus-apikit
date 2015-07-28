@@ -32,7 +32,13 @@ Ext.define('Jarvus.util.AbstractAPI', {
         useSSL: false,
 
         // @inheritdoc
-        withCredentials: true
+        withCredentials: true,
+
+        // @inheritdoc
+        useDefaultXhrHeader: false,
+
+        // @inheritdoc
+        disableCaching: false
     },
 
     //@private
