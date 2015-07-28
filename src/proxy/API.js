@@ -17,7 +17,9 @@ Ext.define('Jarvus.proxy.API', {
          */
         connection: 'Jarvus.util.API',
 
-        headers: null
+        headers: null,
+        
+        noCache: false
     },
 
     /**
