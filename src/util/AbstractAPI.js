@@ -60,7 +60,6 @@ Ext.define('Jarvus.util.AbstractAPI', {
 
         return me.callParent([Ext.applyIf({
             url: me.buildUrl(options.url),
-            withCredentials: true,
             params: me.buildParams(options.params),
             headers: me.buildHeaders(options.headers),
             timeout: options.timeout || 30000,
