@@ -19,7 +19,17 @@ Ext.define('Jarvus.proxy.API', {
 
         headers: null,
         
-        noCache: false
+        noCache: false,
+        
+        directionParam: false,
+        filterParam: false,
+        groupDirectionParam: false,
+        groupParam: false,
+        idParam: false,
+        limitParam: false,
+        pageParam: false,
+        sortParam: false,
+        startParam: false
     },
 
     /**
