@@ -80,7 +80,13 @@ Ext.define('Jarvus.proxy.API', {
 
     buildRequest: function(operation) {
         var me = this,
-            request = me.callParent(arguments);
+            request = me.callParent(arguments),
+            params = request.getParams(),
+            idParam = me.getIdParam();
+
+        if (!idParam && idParam in params) {
+            delete params[idParam];
+        }
 
         request.setMethod(me.getMethod(request));
         request.setHeaders(me.getHeaders(request));
