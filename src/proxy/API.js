@@ -17,6 +17,11 @@ Ext.define('Jarvus.proxy.API', {
          */
         connection: 'Jarvus.util.API',
 
+        /**
+         * @cfg Whether simple remote filters should be written to params
+         */
+        writeFilterParams: true,
+
         headers: null,
         
         noCache: false,
@@ -76,6 +81,42 @@ Ext.define('Jarvus.proxy.API', {
             case 'destroy':
                 return 'DELETE';
         }
+    },
+
+    getParams: function(operation) {
+        var me = this,
+            params = me.callParent(arguments);
+
+        if (me.getWriteFilterParams()) {
+            Ext.apply(params, me.getFilterParams(operation));
+        }
+
+        return params;
+    },
+
+    getFilterParams: function(operation) {
+        var action = operation.getAction(),
+            isRead = action == 'read',
+
+            filters = isRead && operation.getFilters(),
+            filtersLength = (filters && filters.length) || 0,
+            filterIndex = 0,
+            filter,
+
+            params = {};
+
+        // write filters
+        for (; filterIndex < filtersLength; filterIndex++) {
+            filter = filters[filterIndex];
+
+            if (filter.getOperator()) {
+                Ext.Error.raise('Filter operators are not currently supported on the sparkpoints proxy');
+            }
+
+            params[filter.getProperty()] = filter.getValue();
+        }
+
+        return params;
     },
 
     buildRequest: function(operation) {
