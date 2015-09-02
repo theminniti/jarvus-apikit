@@ -75,6 +75,9 @@ Ext.define('Jarvus.util.AbstractAPI', {
     request: function(options) {
         var me = this;
 
+        //the below 'hack' is in place for the '/sections/Geometry/students' call in SparkClassroomTeacher.store.Students
+        options.withCredentials = true;
+        
         return me.callParent([Ext.applyIf({
             url: me.buildUrl(options.url),
             params: me.buildParams(options.params),
